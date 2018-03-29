@@ -1,0 +1,48 @@
+﻿@model List<PositivePsychologyAppHtml.DepartmentNotModel>
+
+@{
+    ViewBag.Title = "Заголовок 1";
+
+}
+<div ng-app="MyApp" class="root container-fluid margin20 getbackground">
+    <div id="BodyDiv" class="corners col-lg-11 col-md-11 col-sm-11 col-xs-11">
+        <div class="fontsize3vw paddingbottom1vw">МОДИФИКАЦИЯ ВНИМАНИЯ</div>
+        <div class="row">
+            <div class="fontsizemedium fontweightbold col-lg-6 col-md-6 col-sm-6 col-xs-6">Найдите улыбающееся лицо среди картинок</div>
+            <div class="fontsizemedium fontweightbold col-lg-6 col-md-6 col-sm-6 col-xs-6">Чем быстрее, тем больше очков.</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><img class="imageSize25vmax" src="~/Images/FocusModificationDescription1.png" /></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><img class="imageSize25vmax" src="~/Images/FocusModificationDescription2.png" /></div>
+        </div>
+        <div class="fontsizesmall paddingbottom1vw">Модификация внимания поможет Вам повысить настроение и снизить стресс. Игра тренирует мозг автоматически фокусироваться на положительных аспектах жизни.</div>
+        <div class="fontsizesmall">Важно помнить, что наш мозг не видит отличий между игрой и реальностью, и благодаря этой особенности у нас появился метод, благодаря которому мы можем настроить наше бессознательное на более позитивный лад. Это может помочь человеку в осуществлении его целей и улучшении качества жизни.</div>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+        @*<img class="imageByDivWidth" src="~/Images/ImageForward.png" />*@
+        @*<input type="image" class="imageByDivWidth" src="~/Images/ImageForward.png" value="Подать заявку">*@
+        <a href="FocusModificationWindow"><img class="imageByDivWidth" src="~/Images/ImageForward.png" alt="Перейти на следующую страницу" /></a>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript" language="javascript" src="~/Scripts/bootstrap.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            SetTopForImageByDivWidth();
+        })
+
+        $(window).resize(function () {
+            SetTopForImageByDivWidth();
+        })
+
+        function SetTopForImageByDivWidth() {
+            $('.imageByDivWidth').css({
+                position: 'absolute',
+                top: ($('#BodyDiv').height() - $('.imageByDivWidth').outerHeight()) / 2
+            });
+        }
+
+    </script>
+}

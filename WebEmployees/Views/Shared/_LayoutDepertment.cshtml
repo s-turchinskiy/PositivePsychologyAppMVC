@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="margin0">
+<style type="text/css">
+    .style-nowrap {
+        white-space: nowrap; /* Переносов в тексте нет */
+   }
+</style>
+
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - Общий заголовок</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+
+       
+        @Scripts.Render("~/bundles/modernizr")
+
+        <link href="~/css/global.css" rel="stylesheet" />
+        <link href="~/css/bootstrap.css" rel="stylesheet" />
+        <script src="~/Scripts/myApp.js"></script> 
+        <!-- 6. Подключить CSS виджета "Bootstrap datetimepicker" -->   
+    </head>
+    <body>
+        @*<div id="body" class="getbackground">*@
+                @*@RenderSection("featured", required: false)*@
+                @*<section class="content-wrapper main-content clear-fix">*@
+                    @RenderBody()
+                @*</section>*@
+        @*</div>*@
+            @Scripts.Render("~/bundles/jquery")
+            @RenderSection("scripts", required: false)
+</body>
+</html>
+
+

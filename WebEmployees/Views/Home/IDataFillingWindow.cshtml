@@ -1,0 +1,146 @@
+﻿@model PositivePsychologyAppHtml.usersdata
+
+@{
+    ViewBag.Title = "Заголовок 1";
+
+}
+
+<div ng-app="MyApp" id="bodyDiv" class="container-fluid backgroundWhite">
+    <nav id="mynav" class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Сотрудники</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><div id="RightNavbarGroup" class="fixed-table-toolbar"></div></li>
+                    @*<li><a href="#">Link</a></li>*@
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div id="HauptDiv" class="backgroundWhite">
+        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="FirstName" class="col-xs-2 control-label">Имя:</label>
+                    <div class="col-xs-10">
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "Введите имя", id = "FirstName", type = "text" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="LastName" class="col-xs-2 control-label">Фамилия:</label>
+                    <div class="col-xs-10">
+                        @*<input class="form-control" id="LastName" placeholder="Введите фамилию">*@
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Введите фамилию", id = "LastName", type = "text" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Birthdate" class="col-xs-2 control-label">Дата рождения:</label>
+                    <div class="col-xs-10" input-group date" id="datetimepicker2">
+                        @Html.TextBox("Birthdate", Model == null ? string.Empty : Convert.ToDateTime(Model.Birthdate).ToString("MM.dd.yyyy"), new
+                   {
+                       @class = "form-control datepicker",
+                       placeholder = "Введите дату рождения",
+                       id = "Birthdate",
+                       type = "text"
+                   })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-2 control-label">Родной город/район:</label>
+                    <div class="col-xs-10">
+                        @Html.TextBoxFor(m => m.Hometown, new { @class = "form-control", placeholder = "Введите родной город/район", id = "Hometown", type = "text" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-2 control-label">Знак зодиака:</label>
+                    <div class="col-xs-10">
+                        @Html.TextBoxFor(m => m.ZodiacSign, new { @class = "form-control", placeholder = "Введите знак зодиака", id = "ZodiacSign", type = "text" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-2 control-label">Любимый цвет:</label>
+                    <div class="col-xs-10">
+                        @Html.TextBoxFor(m => m.FavoriteColor, new { @class = "form-control", placeholder = "Введите любимый цвет", id = "FavoriteColor", type = "text" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-2 control-label">Значимое место или предмет:</label>
+                    <div class="col-xs-10">
+                        @Html.TextBoxFor(m => m.ImportantPlaceOrObject, new { @class = "form-control", placeholder = "Введите значимое место или предмет", id = "ImportantPlaceOrObject", type = "text" })
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                        <div class="col-xs-offset-2 col-xs-10">
+                            <button type="submit" class="btn btn-default">Сохранить</button>
+                        </div>
+                    </div>*@
+
+            </form>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+            @*<img class="imageByDivWidth" src="~/Images/ImageForward.png" />*@
+            @*<input type="image" class="imageByDivWidth" src="~/Images/ImageForward.png" value="Подать заявку">*@
+            <a href="IGame"><img class="imageByDivWidth" src="~/Images/ImageForward.png" alt="Перейти на следующую страницу" /></a>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center">
+        <div class="row">
+            <div class="textForIDataFillingWindow" id="textForIDataFillingWindow">Вся личная информация защищена от распространения и будет использована исключительно для создания Вашего игрового пространства.</div>
+        </div>
+    </div>
+
+
+    @section Scripts{
+        <link href="https://cdn.jsdelivr.net/bootstrap.datepicker-fork/1.3.0/css/datepicker3.css" rel="stylesheet" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/bootstrap.datepicker-fork/1.3.0/js/bootstrap-datepicker.js"></script>
+        <script src="https://cdn.jsdelivr.net/bootstrap.datepicker-fork/1.3.0/js/locales/bootstrap-datepicker.ru.js"></script>
+        <script type="text/javascript" src="~/scripts/moment-with-locales.min.js"></script>
+        @*<script type="text/javascript" src="~/scripts/jquery-ui-1.12.1.min.js"></script>
+            <script type="text/javascript" src="~/scripts/moment.min.js"></script>
+
+                <script type="text/javascript" language="javascript" src="~/Scripts/bootstrap.js"></script>
+                <script type="text/javascript" src="~/scripts/bootstrap-datetimepicker.js"></script>
+            <script src="https://cdn.jsdelivr.net/bootstrap.datepicker-fork/1.3.0/js/locales/bootstrap-datepicker.ru.js"></script>*@
+        @*<link rel="stylesheet" href="~/Content/bootstrap-datetimepicker.css" />*@
+        <script type="text/javascript">
+
+            var applicationPath = "@(Request.ApplicationPath == "/" ? "/" : Request.ApplicationPath + "/")";
+
+            $(document).ready(function () {
+                $.fn.datepicker.defaults.language = 'ru';
+                $.fn.datepicker.defaults.format = 'dd.mm.yyyy';
+                $.fn.datepicker.defaults.autoclose = true;
+                $('.datepicker').datepicker('update', new Date($('.datepicker').val()));
+            });
+
+            $(document).ready(function () {
+                $('.datepicker').datepicker({
+                    startView: 2,
+                    locale: 'ru',
+                    format: 'dd.mm.yyyy',
+                    autoclose: true
+                });
+            });
+
+            $('input').change(function () {
+                $.get(applicationPath +
+                    "Home/UpdatePersonalDataInDatabase/?propertyName=" + this.id + "&value=" + this.value);
+            });
+
+        </script>
+    }

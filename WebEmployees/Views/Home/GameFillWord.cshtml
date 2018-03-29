@@ -1,0 +1,236 @@
+﻿@model PositivePsychologyAppHtml.Fillword
+
+@{
+    ViewBag.Title = "Игра со словами";
+
+}
+
+<div ng-app="MyApp" id="bodyDiv" class="container-fluid backgroundWhite" style="position:relative">
+    <nav id="topNav" class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Сотрудники</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><div id="RightNavbarGroup" class="fixed-table-toolbar"></div></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <nav id="bottomNav" role="navigation" class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container-fluid getbackground">
+            <ul class="navbar-header nav navbar-nav">
+                <li><img src="~/Images/Watch.png" /></li>
+                <li><div class="navbar-brand" id="timer">0:00</div></li>
+            </ul>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><div class="navbar-brand" id="points">0 очков</div></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div id="HauptDiv" class="backgroundWhite" style="position:absolute">
+        <table id="tableFillWord" class="main-table">
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div id="WordsDiv" class="backgroundWhite" style="position:absolute">
+        gggg
+    </div>
+</div>
+
+
+@section Scripts{
+    <script type="text/javascript" language="javascript" src="~/Scripts/bootstrap.js"></script>
+    <script type="text/javascript">
+
+        var applicationPath;
+        var seconds;
+
+        applicationPath = "@(Request.ApplicationPath == "/" ? "/" : Request.ApplicationPath + "/")";
+        SetMarginForBottomNavbar();
+
+        $(document).ready(function () {
+            $(document).trigger('afterready'); // Вызываем всех слушателей
+            //setupFillwordView(); // Функция вашего кода, который должен выполняться в самом конце.
+
+          
+        })
+
+        $(document).bind('afterready', function () {
+            console.log('bind');
+            ShowPointsOnForm();
+            initializeTimer();
+            SetFillWord();
+            console.log('afterSetFillWord');
+           
+        });
+
+        function setupFillwordView() {
+            console.log($('#tableFillWord td')[0]);
+            console.log('setupFillwordView');
+            $('#content').on('mousedown', '#tableFillWord td', function () {
+                fwOnMouseDown(e, this);
+            });
+            //$('#tableFillWord td').on('mousedown', function (e) {
+            //    fwOnMouseDown(e, this);
+            //    return true;
+            //});
+            $('#tableFillWord td').on('mousemove', function (e) {
+                fwOnMouseMove(this);
+                return true;
+            });
+            $(document).on("mouseup", function () { fwOnMouseUp(); });
+        }
+
+        function fwOnMouseDown(evt, td) {
+            //if (!evt) evt = window.event;
+            //if (evt.button == 1 || evt.which == 1) {
+            //    fwCleanAllCells();
+            //    if ($(td).attr("selected") == "1") {
+            //        $.each(getWordCells("wid", $(td).attr("wid")), function (i, e) {
+            //            $(e).css('background-color', '#ddd');
+            //        });
+            //    }
+            //    else {
+            //        fwFirstCell = td;
+            //        fwArrCells = new Array();
+            //        fwArrCells.push(td);
+            $(td).css('background-color', '#ddd');
+            //$(td).attr('bgcolor', '#ddd');
+            //    }
+            //}
+        }
+        function fwOnMouseMove(td) {
+            //if (fwFirstCell == null)
+            //    return;
+            //if ($(fwFirstCell).attr("pos") == $(td).attr("pos"))
+            //    return;
+            //var exists = false;
+            //$.each(fwArrCells, function (i, e) {
+            //    if ($(e).attr('pos') == $(td).attr('pos'))
+            //        exists = true;
+            //});
+            //if (exists) {
+            //    return;
+            //}
+            //if ($(td).hasClass("empty"))
+            //    return;
+
+            //fwArrCells.push(td);
+            $(td).css('background-color', '#ddd');
+        }
+        function fwOnMouseUp() {
+            //fwFirstCell = null;
+            //if (fwArrCells.length <= 1)
+            //    return;
+            //var wId = parseInt($(fwArrCells[0]).attr("wid"));
+            //var counts = 0;
+            //for (var i = 0; i < fwArrCells.length; i++) {
+            //    if (wId != parseInt($(fwArrCells[i]).attr("wid"))) {
+            //        fwCleanAllCells();
+            //        return;
+            //    }
+            //    if ((parseInt(i) + 1) != parseInt($(fwArrCells[i]).attr("orignum"))) {
+            //        fwCleanAllCells();
+            //        return;
+            //    }
+            //    counts++;
+            //}
+            //if (getWordCells("wid", wId).length != counts) {
+            //    fwCleanAllCells();
+            //    return;
+            //}
+            //for (var i = 0; i < fwArrCells.length; i++) {
+            //    if ($(fwArrCells[i]).attr("border-top") == "1")
+            //        $(fwArrCells[i]).css('borderTop', 'solid 2px gray');
+            //    if ($(fwArrCells[i]).attr("border-right") == "1")
+            //        $(fwArrCells[i]).css('border-right', 'solid 2px gray');
+            //    if ($(fwArrCells[i]).attr("border-bottom") == "1")
+            //        $(fwArrCells[i]).css('border-bottom', 'solid 2px gray');
+            //    if ($(fwArrCells[i]).attr("border-left") == "1")
+            //        $(fwArrCells[i]).css('border-left', 'solid 2px gray');
+            //    $(fwArrCells[i]).attr("selected", "1").addClass("filled");
+            //}
+            //$("#hwordidselected" + wId).val("1");
+            //$("#ahintword" + wId).css('text-decoration', 'line-through').css('font-weight', 'normal');
+        }
+
+        function SetFillWord() {
+
+            console.log('SetFillWord1');
+            var str = '';
+            $.getJSON(applicationPath + "Home/GetTableFillWord/", function (data) {
+                for (var i = 0; i < data.table.length; i++) {
+                    str = '<tr>';
+                    for (var j = 0; j < data.table[i].length; j++) {
+                        str = str + '<td>' + data.table[i][j] + '</td>';
+                    }
+                    $('#tableFillWord > tbody:last').append(str + '</tr>');
+                }
+                $('#WordsDiv').text(data.words);
+                setupFillwordView();
+            });
+            console.log('SetFillWord2');
+        }
+
+        function SetMarginForBottomNavbar() {
+            var newHeight = ($(window).height() - $('#bottomNav').height() - $('#topNav').height());
+            $('#HauptDiv').height(newHeight * 0.75);
+            $('#HauptDiv').width((newHeight * 0.75 + 30));
+            var newLeft = ($(window).width() - $('#HauptDiv').width()) / 2;
+            $("#HauptDiv").css('left', newLeft);
+            $("#WordsDiv").css('top', $("#HauptDiv").offset().top + $("#HauptDiv").height());
+            $("#WordsDiv").css('left', newLeft);
+            $('#WordsDiv').height((newHeight * 0.25));
+            $('#WordsDiv').width((newHeight * 0.75 + 30));
+
+        }
+
+        function UpdatePointsInDatabase() {
+            $.get(applicationPath + "Home/UpdatePointsInDatabase/?seconds=" + seconds, function (data) {
+                $("#points")[0].innerText = "Очков: " + data + "  ";
+            });
+        }
+
+        function ShowPointsOnForm() {
+            $.get(applicationPath + "Home/GetPoints/", function (data) {
+                $("#points")[0].innerText = "Очков: " + data + "  ";
+
+            });
+        }
+
+        $('.answerButton').click(function (e) {
+            //if (correctNumber == this.id) {
+            //    UpdatePointsInDatabase();
+            //}
+        });
+
+        function newPage() {
+            document.location = '../Home/Index';
+        }
+
+        function initializeTimer() {
+            seconds = 4;
+            setTimePage(seconds);
+        }
+
+        function setTimePage() {
+            $("#timer")[0].innerHTML = "00:0" + seconds;
+        }
+
+    </script>
+}

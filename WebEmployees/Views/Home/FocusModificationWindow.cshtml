@@ -1,0 +1,158 @@
+﻿@model List<PositivePsychologyAppHtml.FocusModification>
+
+@{
+    ViewBag.Title = "Заголовок 1";
+
+}
+
+<div ng-app="MyApp" id="bodyDiv" class="container-fluid getbackground" style="position:relative">
+    <nav id="bottomNav" role="navigation" class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container-fluid getbackground">
+            <ul class="navbar-header nav navbar-nav">
+                <li><img src="~/Images/Watch.png" /></li>
+                <li><div class="navbar-brand" id="timer">0:00</div></li>
+            </ul>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <form class="navbar-form navbar-left" id="GroupForSearch">
+                    @*<div class="form-group">
+                            <input type="text" class="form-control" placeholder="Поиск">
+                        </div>*@
+                </form>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><div class="navbar-brand" id="points">0 очков</div></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div id="HauptDiv" class="backgroundWhite" style="position:absolute">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="block col-lg-4 col-md-4 col-sm-4 col-xs-4"><input type="image" src="~/Images/Positive pictures/Image1.jpg" id="Image1" /></div>
+                <div class="block col-lg-4 col-md-4 col-sm-4 col-xs-4"><input type="image" src="~/Images/Positive pictures/Image2.jpg" id="Image2" /></div>
+                <div class="block col-lg-4 col-md-4 col-sm-4 col-xs-4"><input type="image" src="~/Images/Positive pictures/Image3.jpg" id="Image3" /></div>
+            </div>
+            <div class="row">
+                <div class="block col-lg-4 col-md-4 col-sm-4 col-xs-4"><input type="image" src="~/Images/Positive pictures/Image4.jpg" id="Image4" /></div>
+                <div class="block col-lg-4 col-md-4 col-sm-4 col-xs-4"><input type="image" src="~/Images/Positive pictures/Image5.jpg" id="Image5" /></div>
+                <div class="block col-lg-4 col-md-4 col-sm-4 col-xs-4"><input type="image" src="~/Images/Positive pictures/Image6.jpg" id="Image6" /></div>
+            </div>
+            <div class="row">
+                <div class="block col-lg-4 col-md-4 col-sm-4 col-xs-4"><input type="image" src="~/Images/Positive pictures/Image7.jpg" id="Image7" /></div>
+                <div class="block col-lg-4 col-md-4 col-sm-4 col-xs-4"><input type="image" src="~/Images/Positive pictures/Image8.jpg" id="Image8" /></div>
+                <div class="block col-lg-4 col-md-4 col-sm-4 col-xs-4"><input type="image" src="~/Images/Positive pictures/Image9.jpg" id="Image9" /></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script type="text/javascript" language="javascript" src="~/Scripts/bootstrap.js"></script>
+    <script type="text/javascript">
+
+        var applicationPath;
+        var positiveImageNumberForm;
+        var iterations;
+        var seconds;
+
+        $(document).ready(function () {
+            applicationPath = "@(Request.ApplicationPath == "/" ? "/" : Request.ApplicationPath + "/")";
+            ShowPointsOnForm();
+            iterations = 0;
+            SetImage();
+            SetMarginForBottomNavbar();
+            initializeTimer();
+        })
+
+        $(window).resize(function () {
+            SetMarginForBottomNavbar();
+        })
+
+        function SetMarginForBottomNavbar() {
+            var newHeight = ($(window).height() - $('#bottomNav').height()) - 30;
+            $('#HauptDiv').height(newHeight);
+            $('#HauptDiv').width((newHeight + 30));
+            var newLeft = ($(window).width() - $('#HauptDiv').width()) / 2
+            $("#HauptDiv").css('left', newLeft);
+
+            $('.block input').height(newHeight / 3);
+            $('.block input').width(newHeight / 3);
+        }
+
+        function SetImage() {
+
+            iterations++;
+            $.getJSON(applicationPath + "Home/GetImagesPaths/", function (data) {
+                positiveImageNumberForm = data.positiveImageNumberForm;
+                for (var i = 0; i < data.pathsArray.length; i++) {
+                    $("#Image" + (i + 1)).attr("src", ".." + data.pathsArray[i]);
+                }
+            });
+        }
+
+        function UpdatePointsInDatabase() {
+            $.get(applicationPath + "Home/UpdatePointsInDatabase/?seconds=" + seconds, function (data) {
+                $("#points")[0].innerText = "Очков: " + data + "  ";
+            });
+            //var mm = @TempData["points"];
+
+        }
+
+        function ShowPointsOnForm() {
+            $.get(applicationPath + "Home/GetPoints/", function (data) {
+                $("#points")[0].innerText = "Очков: " + data + "  ";
+
+            });
+        }
+
+        $(':image').click(function (e) {
+            if (positiveImageNumberForm == this.id) {
+                UpdatePointsInDatabase();
+                EndIteration(timerId);
+            }
+        });
+
+        function gameOver() {
+            return (iterations == 10)
+        }
+
+        function newPage() {
+            document.location = '../Home/IDataFillingWindow';
+        }
+
+        function initializeTimer() {
+            seconds = 4;
+
+            setTimePage(seconds);
+            function secOut() {
+                if (seconds == 0) {
+                    EndIteration(timerId);
+                }
+                else { seconds--; }
+                setTimePage(seconds);
+            }
+            timerId = setInterval(secOut, 1000);
+        }
+
+        function setTimePage() 
+        {
+           $("#timer")[0].innerHTML = "00:0" + seconds;
+        }
+
+        function EndIteration(timerId) {
+
+            clearInterval(timerId);
+
+            if (gameOver())
+                newPage();
+            else {
+                SetImage();
+                initializeTimer(timerId);
+            }
+        }
+
+    </script>
+}

@@ -1,0 +1,108 @@
+﻿@model PositivePsychologyAppHtml.EmployeeDetailsModel
+
+@{
+    var imgSrc = "";
+    if (Model.Photo != null)
+    {
+        var base64 = Convert.ToBase64String(Model.Photo);
+        imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+    }
+
+}
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal" area-hidden="true">X</button>
+        <h4>Информация о сотруднике</h4>
+    </div>
+    <div class="modal-body">
+        @*<img src="@Url.Content(Model.PathToImage)" />*@
+        <img src="@imgSrc" />
+        <hr />
+       
+        
+
+        <dl class="dl-horizontal">
+
+            <dt>Фамилия</dt>
+            <dd>@Html.DisplayFor(model => model.LastName)</dd>
+
+            <dt>Имя</dt>
+            <dd>@Html.DisplayFor(model => model.FirstName)</dd>
+
+            <dt>Отчество</dt>
+            <dd>@Html.DisplayFor(model => model.MiddleName)</dd>
+
+            <dt>Организация</dt>
+            <dd>@Html.DisplayFor(model => model.OrganizationName)</dd>
+
+            <dt>Дивизион</dt>
+            <dd>@Html.DisplayFor(model => model.DivizionName)</dd>
+
+            <dt>Блок</dt>
+            <dd>@Html.DisplayFor(model => model.BlockName)</dd>
+
+            <dt>Подразделение</dt>
+            <dd>@Html.DisplayFor(model => model.DepartmentName)</dd>
+
+            <dt>Должность</dt>
+            <dd>@Html.DisplayFor(model => model.PositionName)</dd>
+            <dt>
+                Офис
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Office)
+            </dd>
+
+            <dt>
+                Этаж
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Floor)
+            </dd>
+
+            <dt>
+                Кабинет-секция
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Room)
+            </dd>
+
+            <dt>
+                Код
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Code)
+            </dd>
+
+            <dt>Дата рождения</dt>
+            <dd>@Html.DisplayFor(model => model.Birthday)</dd>
+
+            <dt>Знак зодиака</dt>
+            <dd>@Html.DisplayFor(model => model.ZodiacSign)</dd>
+        </dl>
+
+        <hr />
+
+        <h4>Телефоны</h4>
+        <dl class="dl-horizontal">
+
+            @foreach (var item in Model.Phones)
+            {
+                <dd> @item</dd>
+                @*<dd>@Html.DisplayFor(@item => @item.Number)</dd>*@
+            }
+
+        </dl>
+
+      
+</div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDEmployee }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

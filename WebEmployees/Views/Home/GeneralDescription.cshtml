@@ -1,0 +1,51 @@
+﻿@model List<PositivePsychologyAppHtml.DepartmentNotModel>
+
+@{
+    ViewBag.Title = "Заголовок 1";
+
+}
+
+<div ng-app="MyApp" class="root container-fluid margin20 getbackground">
+    <div id="BodyDiv" class="corners col-lg-11 col-md-11 col-sm-11 col-xs-11">
+        <div class="fontsize3vw paddingbottom1vw">МОДИФИКАЦИЯ ИСКАЖЕНИЯ КОГНИТИВНЫХ ПРОЦЕССОВ</div>
+        <div class="fontsizesmall paddingbottom1vw">Перед Вами игра, способная улучшить Ваше эмоциональное состояние и помочь проще справляться со стрессом. Для этого:</div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><img class="imageSize20vmax" src="~/Images/ImagePoint.png" /></div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><img class="imageSize20vmax" src="~/Images/ImageTime.png" /></div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><img class="imageSize20vmax" src="~/Images/ImagePrecent.png" /></div>
+        </div>
+        <div class="row">
+            <div class="fontsizemedium fontweightbold col-lg-4 col-md-4 col-sm-4 col-xs-4">Наберите за месяц  5000 очков</div>
+            <div class="fontsizemedium fontweightbold col-lg-4 col-md-4 col-sm-4 col-xs-4">Для этого играйте каждый день около 10 минут</div>
+            <div class="fontsizemedium fontweightbold col-lg-4 col-md-4 col-sm-4 col-xs-4">Наберите как можно больше очков за каждую тренировку</div>
+        </div>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+        @*<img class="imageByDivWidth" src="~/Images/ImageForward.png" />*@
+        @*<input type="image" class="imageByDivWidth" src="~/Images/ImageForward.png" value="Подать заявку">*@
+        <a href="FocusModificationDescriptionWindow"><img class="imageByDivWidth" src="~/Images/ImageForward.png" alt="Перейти на следующую страницу" /></a>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script type="text/javascript" language="javascript" src="~/Scripts/bootstrap.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            SetTopForImageByDivWidth();
+        })
+
+        $(window).resize(function () {
+            SetTopForImageByDivWidth();
+        })
+
+        function SetTopForImageByDivWidth() {
+            $('.imageByDivWidth').css({
+                position: 'absolute',
+                top: ($('#BodyDiv').height() - $('.imageByDivWidth').outerHeight()) / 2
+            });
+        }
+
+    </script>
+}
